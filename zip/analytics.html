@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html data-wf-page="67a6ae073034b57db459b5d3" data-wf-site="67a6ae073034b57db459b595">
+<head>
+  <meta charset="utf-8">
+  <title>Analytics Dashboard - PortfolioEngine</title>
+  <meta content="Advanced portfolio analytics and performance attribution" property="og:description">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/portfolioengine.css" rel="stylesheet" type="text/css">
+  <link href="css/analytics.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">WebFont.load({  google: {    families: ["Inter:300,400,500,600,700","IBM Plex Mono:400,500"]  }});</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+</head>
+<body class="analytics-body">
+  <!-- Navigation Header -->
+  <div class="navigation-dashboard">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="logo-link">
+          <h2 class="logo-text">PortfolioEngine</h2>
+        </a>
+      </div>
+      <div class="nav-center">
+        <nav class="nav-menu">
+          <a href="portfolio-dashboard.html" class="nav-link">Dashboard</a>
+          <a href="thesis-basket.html" class="nav-link">Thesis Baskets</a>
+          <a href="analytics.html" class="nav-link active">Analytics</a>
+          <a href="transactions.html" class="nav-link">Transactions</a>
+          <a href="risk-analysis.html" class="nav-link">Risk</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <div class="market-status">
+          <span class="status-indicator active"></span>
+          <span class="status-text">Markets Open</span>
+        </div>
+        <div class="user-menu">
+          <img src="images/user-avatar.png" class="user-avatar" alt="User">
+          <span class="user-name">John Smith</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics Container -->
+  <div class="analytics-container">
+    <!-- Analytics Header -->
+    <div class="analytics-header">
+      <h1 class="analytics-title">Performance Analytics</h1>
+      <div class="analytics-controls">
+        <select class="portfolio-select">
+          <option>All Portfolios</option>
+          <option>Growth Portfolio</option>
+          <option>Value Portfolio</option>
+          <option>Income Portfolio</option>
+        </select>
+        <div class="date-range-selector">
+          <input type="date" class="date-input" value="2026-01-01">
+          <span>to</span>
+          <input type="date" class="date-input" value="2026-02-27">
+        </div>
+        <button class="btn-export">Export Report</button>
+      </div>
+    </div>
+
+    <!-- Key Performance Indicators -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Total Return</span>
+          <span class="kpi-period">YTD</span>
+        </div>
+        <div class="kpi-value positive">+18.72%</div>
+        <div class="kpi-comparison">
+          <span class="comparison-label">vs Benchmark:</span>
+          <span class="comparison-value positive">+10.2%</span>
+        </div>
+        <div class="kpi-sparkline">
+          <canvas id="returnSparkline" height="40"></canvas>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Sharpe Ratio</span>
+          <span class="kpi-period">1Y</span>
+        </div>
+        <div class="kpi-value">1.42</div>
+        <div class="kpi-comparison">
+          <span class="comparison-label">Percentile:</span>
+          <span class="comparison-value">85th</span>
+        </div>
+        <div class="kpi-sparkline">
+          <canvas id="sharpeSparkline" height="40"></canvas>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Alpha</span>
+          <span class="kpi-period">1Y</span>
+        </div>
+        <div class="kpi-value positive">+8.3%</div>
+        <div class="kpi-comparison">
+          <span class="comparison-label">Information Ratio:</span>
+          <span class="comparison-value">0.92</span>
+        </div>
+        <div class="kpi-sparkline">
+          <canvas id="alphaSparkline" height="40"></canvas>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Max Drawdown</span>
+          <span class="kpi-period">1Y</span>
+        </div>
+        <div class="kpi-value negative">-12.4%</div>
+        <div class="kpi-comparison">
+          <span class="comparison-label">Recovery Days:</span>
+          <span class="comparison-value">45</span>
+        </div>
+        <div class="kpi-sparkline">
+          <canvas id="drawdownSparkline" height="40"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Analytics Content -->
+    <div class="analytics-grid">
+      <!-- Performance Chart -->
+      <div class="chart-panel full-width">
+        <div class="panel-header">
+          <h2 class="panel-title">Cumulative Performance</h2>
+          <div class="chart-options">
+            <select class="chart-type-select">
+              <option>Line Chart</option>
+              <option>Area Chart</option>
+              <option>Candlestick</option>
+            </select>
+            <div class="benchmark-toggles">
+              <label class="toggle-label">
+                <input type="checkbox" checked> Portfolio
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" checked> S&P 500
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox"> NASDAQ
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="performanceChart" height="350"></canvas>
+        </div>
+        <div class="chart-stats">
+          <div class="stat-item">
+            <span class="stat-label">Best Day:</span>
+            <span class="stat-value positive">+4.2% (Jan 15)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Worst Day:</span>
+            <span class="stat-value negative">-3.1% (Feb 5)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Volatility:</span>
+            <span class="stat-value">16.5%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Win Rate:</span>
+            <span class="stat-value">62.5%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attribution Analysis -->
+      <div class="chart-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Performance Attribution</h2>
+          <select class="attribution-type">
+            <option>By Security</option>
+            <option>By Sector</option>
+            <option>By Asset Class</option>
+            <option>By Factor</option>
+          </select>
+        </div>
+        <div class="attribution-content">
+          <canvas id="attributionChart" height="300"></canvas>
+        </div>
+        <div class="attribution-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Contributor</th>
+                <th>Weight</th>
+                <th>Return</th>
+                <th>Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="positive-row">
+                <td>NVDA</td>
+                <td>6.9%</td>
+                <td>+85.2%</td>
+                <td>+5.88%</td>
+              </tr>
+              <tr class="positive-row">
+                <td>AAPL</td>
+                <td>8.5%</td>
+                <td>+32.1%</td>
+                <td>+2.73%</td>
+              </tr>
+              <tr class="positive-row">
+                <td>MSFT</td>
+                <td>7.2%</td>
+                <td>+28.5%</td>
+                <td>+2.05%</td>
+              </tr>
+              <tr class="negative-row">
+                <td>PYPL</td>
+                <td>2.1%</td>
+                <td>-22.3%</td>
+                <td>-0.47%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Risk/Return Scatter -->
+      <div class="chart-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Risk/Return Profile</h2>
+          <select class="scatter-period">
+            <option>1 Month</option>
+            <option>3 Months</option>
+            <option>1 Year</option>
+            <option>3 Years</option>
+          </select>
+        </div>
+        <div class="scatter-content">
+          <canvas id="riskReturnChart" height="300"></canvas>
+        </div>
+        <div class="scatter-legend">
+          <div class="legend-item">
+            <span class="dot portfolio"></span>
+            <span>Your Portfolio</span>
+          </div>
+          <div class="legend-item">
+            <span class="dot benchmark"></span>
+            <span>S&P 500</span>
+          </div>
+          <div class="legend-item">
+            <span class="dot peer"></span>
+            <span>Peer Average</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rolling Statistics -->
+      <div class="chart-panel full-width">
+        <div class="panel-header">
+          <h2 class="panel-title">Rolling Statistics</h2>
+          <div class="rolling-controls">
+            <select class="rolling-metric">
+              <option>Returns</option>
+              <option>Volatility</option>
+              <option>Sharpe Ratio</option>
+              <option>Beta</option>
+            </select>
+            <select class="rolling-window">
+              <option>30 Days</option>
+              <option>60 Days</option>
+              <option>90 Days</option>
+              <option>180 Days</option>
+            </select>
+          </div>
+        </div>
+        <div class="rolling-chart">
+          <canvas id="rollingChart" height="250"></canvas>
+        </div>
+      </div>
+
+      <!-- Correlation Matrix -->
+      <div class="chart-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Correlation Matrix</h2>
+          <button class="btn-recalculate">Recalculate</button>
+        </div>
+        <div class="correlation-matrix">
+          <canvas id="correlationChart" height="300"></canvas>
+        </div>
+        <div class="correlation-insights">
+          <div class="insight-item">
+            <span class="insight-icon">💡</span>
+            <span class="insight-text">High correlation (0.85) between MSFT and GOOGL</span>
+          </div>
+          <div class="insight-item">
+            <span class="insight-icon">⚠️</span>
+            <span class="insight-text">Consider diversification in tech sector</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Factor Analysis -->
+      <div class="chart-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Factor Exposure</h2>
+          <button class="btn-details">View Details</button>
+        </div>
+        <div class="factor-content">
+          <canvas id="factorChart" height="300"></canvas>
+        </div>
+        <div class="factor-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Factor</th>
+                <th>Exposure</th>
+                <th>Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Market</td>
+                <td>1.12</td>
+                <td>+8.5%</td>
+              </tr>
+              <tr>
+                <td>Size</td>
+                <td>0.23</td>
+                <td>+1.2%</td>
+              </tr>
+              <tr>
+                <td>Value</td>
+                <td>-0.15</td>
+                <td>-0.8%</td>
+              </tr>
+              <tr>
+                <td>Momentum</td>
+                <td>0.45</td>
+                <td>+3.2%</td>
+              </tr>
+              <tr>
+                <td>Quality</td>
+                <td>0.38</td>
+                <td>+2.1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Period Comparison -->
+    <div class="period-comparison">
+      <h2 class="section-title">Period Comparison</h2>
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>1D</th>
+              <th>1W</th>
+              <th>1M</th>
+              <th>3M</th>
+              <th>6M</th>
+              <th>YTD</th>
+              <th>1Y</th>
+              <th>3Y Ann.</th>
+              <th>5Y Ann.</th>
+              <th>Since Inception</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="metric-name">Return</td>
+              <td class="positive">+1.2%</td>
+              <td class="positive">+2.8%</td>
+              <td class="positive">+5.4%</td>
+              <td class="positive">+12.3%</td>
+              <td class="positive">+15.7%</td>
+              <td class="positive">+18.7%</td>
+              <td class="positive">+28.4%</td>
+              <td class="positive">+22.1%</td>
+              <td class="positive">+19.8%</td>
+              <td class="positive">+18.5%</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Volatility</td>
+              <td>12.3%</td>
+              <td>14.5%</td>
+              <td>15.2%</td>
+              <td>16.1%</td>
+              <td>16.8%</td>
+              <td>16.5%</td>
+              <td>17.2%</td>
+              <td>18.5%</td>
+              <td>17.9%</td>
+              <td>17.3%</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Sharpe</td>
+              <td>1.85</td>
+              <td>1.62</td>
+              <td>1.55</td>
+              <td>1.48</td>
+              <td>1.45</td>
+              <td>1.42</td>
+              <td>1.38</td>
+              <td>1.25</td>
+              <td>1.18</td>
+              <td>1.15</td>
+            </tr>
+            <tr>
+              <td class="metric-name">Max DD</td>
+              <td class="negative">-0.8%</td>
+              <td class="negative">-2.1%</td>
+              <td class="negative">-3.5%</td>
+              <td class="negative">-5.8%</td>
+              <td class="negative">-8.2%</td>
+              <td class="negative">-8.2%</td>
+              <td class="negative">-12.4%</td>
+              <td class="negative">-15.8%</td>
+              <td class="negative">-18.2%</td>
+              <td class="negative">-22.5%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Charts -->
+  <script src="js/analytics-charts.js"></script>
+</body>
+</html>
