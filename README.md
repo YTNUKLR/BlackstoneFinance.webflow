@@ -3,6 +3,54 @@
 ## Overview
 PortfolioEngine is a sophisticated portfolio management and investment analysis platform designed for financial professionals and investment managers. This website serves as the front-end interface for the PortfolioEngine system, providing intuitive access to portfolio analytics, risk management tools, and investment thesis tracking.
 
+## 🚀 Quick Start Guide
+
+### View the Website Locally
+1. **Clone or download the repository**
+   ```bash
+   git clone https://github.com/YTNUKLR/BlackstoneFinance.webflow.git
+   cd BlackstoneFinance.webflow
+   ```
+
+2. **Open in browser** (choose one method):
+   - **Direct**: Open `index.html` in your browser
+   - **With local server** (recommended):
+     ```bash
+     # Python 3
+     python3 -m http.server 8000
+     # Then visit: http://localhost:8000
+
+     # OR using Node.js
+     npx http-server
+     # Then visit: http://localhost:8080
+     ```
+
+3. **Explore the site**:
+   - Landing page showcases PortfolioEngine features
+   - Click "View Demo Dashboard" to see portfolio management
+   - Navigate to Thesis Baskets and Analytics pages
+
+### Deploy to GitHub Pages
+1. **Push to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Deploy PortfolioEngine"
+   git push origin main
+   ```
+
+2. **Enable GitHub Pages**:
+   - Go to Settings → Pages
+   - Source: Deploy from branch
+   - Branch: main, folder: / (root)
+   - Save and wait 5-10 minutes
+
+3. **Access your site**:
+   ```
+   https://[your-username].github.io/[repository-name]/
+   ```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
 ## Project Description
 The PortfolioEngine website is built using modern web technologies to deliver a responsive, professional interface for portfolio management. It integrates with backend services to provide real-time portfolio analytics, thesis tracking, and investment performance monitoring.
 
@@ -52,11 +100,24 @@ BlackstoneFinance.webflow/
 ## Getting Started
 Please refer to [SETUP.md](SETUP.md) for detailed installation and configuration instructions.
 
-## Documentation
+## 📚 Documentation
+
+### Core Documentation
 - [FEATURES.md](FEATURES.md) - Detailed feature documentation
 - [SETUP.md](SETUP.md) - Installation and setup guide
 - [API_DOCUMENTATION.md](API_DOCUMENTATION.md) - API integration documentation
 - [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture overview
+
+### Development & Deployment
+- [DEPLOYMENT.md](DEPLOYMENT.md) - **GitHub Pages deployment guide**
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - **Common issues and solutions**
+- [CHANGELOG.md](CHANGELOG.md) - **Project change history**
+
+### Quick Reference
+- **Local Development**: See Quick Start Guide above
+- **GitHub Pages Issues**: Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- **Custom Domain Setup**: See [DEPLOYMENT.md](DEPLOYMENT.md#custom-domain-setup)
+- **What's New**: See [CHANGELOG.md](CHANGELOG.md)
 
 ## Development Workflow
 1. **Local Development**: Set up local environment following SETUP.md
