@@ -57,6 +57,24 @@ Decisions that shape or block website development work. Capture decisions as soo
 
 ---
 
+### ADR-004: Switch hosting from Webflow to GitHub Pages
+
+**Date**: 2026-03-03 | **Status**: Decided
+
+**Context**: Phase 1 changes were made via direct HTML editing (ADR-003). conjur.pro was served by Webflow hosting, meaning local HTML changes wouldn't appear on the live site — only changes made via Webflow Designer API would. Options: a) Redo changes via Designer API, b) Switch hosting to GitHub Pages.
+
+**Decision**: Switch to GitHub Pages. CNAME file added to repo. DNS records for conjur.pro need to be updated to point to GitHub Pages IPs.
+
+**Rationale**: Git is now the source of truth for site content (ADR-003). GitHub Pages deploys directly from main branch on push, which aligns with the direct HTML editing workflow. Webflow Designer/MCP can still be used for styling work — the Webflow-hosted version just won't be the production site.
+
+**Consequences**:
+- Deploy by pushing to main branch
+- DNS must point to GitHub Pages: A records `185.199.108-111.153`, CNAME `www` → `YTNUKLR.github.io`
+- Webflow publish no longer updates the live site
+- Webflow Designer can still be used for styling experiments, but changes must be exported to git to go live
+
+---
+
 ## Guidelines
 
 - **Capture early**: Add a decision to the Open table as soon as it is identified, even with no options listed.

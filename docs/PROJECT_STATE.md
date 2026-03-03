@@ -33,7 +33,9 @@ Technical reference: [site-structure.md](site-structure.md) (element IDs), [webf
 - Three placeholder pages created: portfolio-dashboard.html, thesis-basket.html, analytics.html
 - 404 page now has nav, contact, and footer
 - about.html nav/contact/footer updated (body content still template — Phase 2)
-- Published to conjur.pro (Phase 0); Phase 1 changes not yet published
+- Hosting switched from Webflow to GitHub Pages (ADR-004)
+- All changes pushed to main; site live at https://ytnuklr.github.io/BlackstoneFinance.webflow/
+- DNS for conjur.pro needs updating to point to GitHub Pages IPs
 
 ## Remaining Work
 - About page body still has template content ("Jane Lo") — Phase 2

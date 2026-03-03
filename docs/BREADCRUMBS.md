@@ -48,6 +48,14 @@ All other pages (about.html, 401.html, 404.html) had the jQuery CDN script befor
 
 The Coming Soon placeholder pages (portfolio-dashboard.html, thesis-basket.html, analytics.html) reuse the `section cc-home-wrap` class from the home page hero for consistent dark-theme styling. No custom CSS was needed.
 
+### 12. Git push requires YTNUKLR account
+
+The repo is owned by the `YTNUKLR` org. The `scottk-ctrl` account doesn't have push access. To push: `gh auth login` as `YTNUKLR`, then `gh auth setup-git` to wire git credential helper to use the active `gh` account. Both accounts can coexist — `gh auth status` shows which is active.
+
+### 13. Hosting moved from Webflow to GitHub Pages (ADR-004)
+
+conjur.pro was previously served by Webflow hosting. As of 2026-03-03, it's switching to GitHub Pages. Deploy by pushing to main. DNS records need updating: A records to `185.199.108-111.153`, CNAME `www` to `YTNUKLR.github.io`. Until DNS is updated, the site is accessible at `https://ytnuklr.github.io/BlackstoneFinance.webflow/`.
+
 ### 8. CSS properties must be longhand
 
 Webflow style updates only accept longhand CSS properties. Use `margin-top`, `margin-right`, etc. — not the shorthand `margin`. Colors accept hex (`#C9A96E`) or rgba (`rgba(201, 169, 110, 0.2)`).
@@ -143,4 +151,8 @@ Webflow style updates only accept longhand CSS properties. Use `margin-top`, `ma
 - 401.html left as-is (password gate utility page)
 - Design doc: `docs/plans/2026-03-03-phase1-shared-components-design.md`
 - Implementation plan: `docs/plans/2026-03-03-phase1-implementation.md`
-**Remaining**: About page body still template content (Phase 2). Feature pages are placeholders (Phase 3). Hover states need refinement (Phase 4). Changes not yet published to conjur.pro.
+- Switched hosting from Webflow to GitHub Pages (ADR-004). CNAME added, pushed to main.
+- DNS for conjur.pro still needs updating to point to GitHub Pages IPs
+- Site accessible at https://ytnuklr.github.io/BlackstoneFinance.webflow/ in the meantime
+- Git push requires `YTNUKLR` account via `gh auth login` + `gh auth setup-git`
+**Remaining**: About page body still template content (Phase 2). Feature pages are placeholders (Phase 3). Hover states need refinement (Phase 4). DNS update needed for conjur.pro → GitHub Pages.
